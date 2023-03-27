@@ -1,3 +1,5 @@
+import {template} from "../components/TodoList/TodoList.tmpl";
+
 function join(templates: string[]) {
     if (!Array.isArray(templates)) {
         throw new Error(`Функция join ожидает массив, был передан ${typeof templates}`);
@@ -42,4 +44,7 @@ class Templator {
     }
 }
 
-export default Templator;
+export const compile = (template, props) => {
+    const templator = new Templator(template);
+    return templator.compile(props);
+};

@@ -1,4 +1,4 @@
-import Templator from "../../core/Templator";
+import {compile} from "../../core/Templator";
 import Block from "../../core/Block";
 import {template} from "./TodoList.tmpl";
 
@@ -8,7 +8,6 @@ export class TodoList extends Block {
     }
 
     render() {
-        const todoTemplate = new Templator(template);
-        return todoTemplate.compile(this.props);
+        return compile(template, this.props);
     }
 }
