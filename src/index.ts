@@ -7,6 +7,15 @@ const TODOS = [
     'Задача 3',
 ];
 
+const clickHandler = (item: string = 'Задача') => {
+    TODOS.push(item)
+    todoList.setProps({
+        chatListItems: TODOS.map(item => (
+            `<li class="todo__item">${item}</li>`
+        )),
+    })
+}
+
 const todoList = new TodoList({
     wrapperClassName: 'todo__wrapper',
     buttonText: 'Добавить задачу',
@@ -15,9 +24,8 @@ const todoList = new TodoList({
         `<li class="todo__item">${item}</li>`
     )),
     handleClick: () => {
-        const el = document.querySelector('.todo__list');
-        el.innerHTML += `<li class="todo__item">Задача</li>`;
-    }
+        clickHandler()
+    },
 })
 
 mountApp('.app', todoList);
