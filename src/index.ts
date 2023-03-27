@@ -3,24 +3,24 @@ import { template as tmpl } from "./template.tmpl";
 
 const app = document.getElementById('app');
 
-const CHAT_NAMES = [
-    'Название чата 1',
-    'Название чата 2',
-    'Название чата 3',
+const TODOS = [
+    'Задача 1',
+    'Задача 2',
+    'Задача 3',
 ];
 
 const chatsTemplate = new Templator(tmpl)
 
 const chatsMarkup = chatsTemplate.compile({
-    wrapperClassName: 'chat__wrapper',
-    buttonText: 'Добавить чат',
-    chatListClassName: 'chat__list',
-    chatListItems: CHAT_NAMES.map(item => (
-        `<li class="chat__item">${item}</li>`
+    wrapperClassName: 'todo__wrapper',
+    buttonText: 'Добавить задачу',
+    chatListClassName: 'todo__list',
+    chatListItems: TODOS.map(item => (
+        `<li class="todo__item">${item}</li>`
     )),
     handleClick: () => {
-        const chat = app.querySelector('.chat__list');
-        chat.innerHTML += `<li class="chat__item">Чат</li>`;
+        const todos = app.querySelector('.todo__list');
+        todos.innerHTML += `<li class="todo__item">Задача</li>`;
     }
 });
 
