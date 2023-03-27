@@ -5,7 +5,7 @@ function join(templates: string[]) {
     return templates.join('');
 }
 
-export default class Templator {
+class Templator {
     private _template: string;
     constructor(template) {
         this._template = template;
@@ -35,11 +35,11 @@ export default class Templator {
                 continue
             }
 
-
-
             result = result.replace(new RegExp(match[0], 'gi'), data);
         }
 
         return result;
     }
 }
+
+export default Templator;

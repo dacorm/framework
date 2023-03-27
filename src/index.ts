@@ -1,7 +1,5 @@
-import Templator from "./Templator";
-import { template as tmpl } from "./template.tmpl";
-
-const app = document.getElementById('app');
+import {mountApp} from "./utils/mountApp";
+import {TodoList} from "./components/TodoList/TodoList";
 
 const TODOS = [
     'Задача 1',
@@ -9,9 +7,7 @@ const TODOS = [
     'Задача 3',
 ];
 
-const chatsTemplate = new Templator(tmpl)
-
-const chatsMarkup = chatsTemplate.compile({
+const todoList = new TodoList({
     wrapperClassName: 'todo__wrapper',
     buttonText: 'Добавить задачу',
     chatListClassName: 'todo__list',
@@ -19,9 +15,9 @@ const chatsMarkup = chatsTemplate.compile({
         `<li class="todo__item">${item}</li>`
     )),
     handleClick: () => {
-        const todos = app.querySelector('.todo__list');
-        todos.innerHTML += `<li class="todo__item">Задача</li>`;
+        const el = document.querySelector('.todo__list');
+        el.innerHTML += `<li class="todo__item">Задача</li>`;
     }
-});
+})
 
-app.innerHTML = chatsMarkup;
+mountApp('.app', todoList);
