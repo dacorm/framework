@@ -24,7 +24,7 @@ export interface ComponentProps {
 
 export default class Block {
     _element = null;
-    protected props: ComponentProps;
+    props: ComponentProps;
     private eventBus: () => EventBus;
 
     constructor(props = {}) {
@@ -52,7 +52,7 @@ export default class Block {
     init() {
         this._createResources();
 
-        this.eventBus().emit(EVENTS.FLOW_RENDER);
+        this.eventBus().emit(EVENTS.FLOW_CDM);
     }
 
     _componentDidMount() {
@@ -81,6 +81,7 @@ export default class Block {
         }
 
         Object.assign(this.props, nextProps);
+        this.eventBus().emit(EVENTS.FLOW_CDU);
     };
 
     get element() {

@@ -1,31 +1,45 @@
 import {mountApp} from "./utils/mountApp";
-import {TodoList} from "./components/TodoList/TodoList";
+import { TodoListConnected } from "./components/TodoList";
+import {store} from "./store/Store";
 
-const TODOS = [
-    'Задача 1',
-    'Задача 2',
-    'Задача 3',
-];
+const todos = store.getState().todoList;
 
 const clickHandler = (item: string = 'Задача') => {
-    TODOS.push(item)
+    todos.push({
+        text: item,
+        isDone: false
+    })
     todoList.setProps({
-        chatListItems: TODOS.map(item => (
-            `<li class="todo__item">${item}</li>`
+        chatListItems: todos.map(item => (
+            `<li class="todo__item">${item.text}</li>`
         )),
     })
 }
 
-const todoList = new TodoList({
+const toggleDone = (todoText) => {
+    const newTodos = store.getState().todoList.map((todo) => {
+        if (todo.text === todoText) {
+            todo.isDone = !todo.isDone;
+        };
+    })
+
+    store.set('todoList', newTodos)
+}
+
+const todoList = new TodoListConnected({
     wrapperClassName: 'todo__wrapper',
     buttonText: 'Добавить задачу',
     chatListClassName: 'todo__list',
-    chatListItems: TODOS.map(item => (
-        `<li class="todo__item">${item}</li>`
+    inputClassName: 'todo__input',
+    chatListItems: todos.map(item => (
+        `<li class="todo__item"><p>${item.text}</p><input type="checkbox"></li>`
     )),
     handleClick: () => {
-        clickHandler()
+        clickHandler((store.getState()?.inputValue as string) || '')
     },
+    changeHandler: () => {
+        store.set('inputValue', (document.querySelector(`.${todoList.props.inputClassName}`) as HTMLInputElement).value);
+    }
 })
 
 mountApp('.app', todoList);

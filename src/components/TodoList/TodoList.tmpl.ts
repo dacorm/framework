@@ -1,7 +1,8 @@
 export const template = `
 <div class="{{ wrapperClassName }}">
   <div class="chat__button">
-    <button class="button" onclick="{{ handleClick }}">
+    <input type="text" class="{{ inputClassName }}" oninput="{{ changeHandler }}">
+    <button class="button" onclick="{{ handleClick }}" type="button">
       <span>{{ buttonText }}</span>
     </button>
   </div>
